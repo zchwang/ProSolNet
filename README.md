@@ -17,7 +17,7 @@ The environment of ProSolNet/ProSolNet_Mut can be created using Conda, and the m
         transformers==4.57.1
         pyrosetta==2024.39+release.59628fb
 
-More detailed environment information is provided in xxx
+More detailed environment information is provided in environment.yml.
 
 ## Usage
 ### 1. Generate features
