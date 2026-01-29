@@ -2,7 +2,7 @@
 
 Protein solubility is a key property of broad interest in protein engineering. Based on protein three-dimensional structures and sequences, we extracted global features, graph-based features, and surface features, and developed two deep learning models, ProSolNet and ProSolNet_mut, to predict protein solubility and solubility changes induced by mutations, respectively. 
 
-<img src="src/ProSolNet-image.png">
+<img src="src/ProSolNet-images.png">
 
 ## Conda environment
 The environment of ProSolNet/ProSolNet_Mut can be created using Conda, and the main packages are as follows:
