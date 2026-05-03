@@ -95,7 +95,7 @@ class ProteinDataset():
 
         return final_test_keys, test_dataloader
     
-def run_an_eval_epoch(model, dataloader, device):
+def run_an_eval_epoch(model, dataloader, device, threshold=0.42):
     model.eval()
     with th.no_grad():
         final_keys = []
@@ -110,12 +110,14 @@ def run_an_eval_epoch(model, dataloader, device):
             res_batch = res_batch.to(device)
             batch = batch.to(device)
             _, pred = model(seq_feats, feats, xyz, surf_feats, surf_res, res_batch, batch)
-        
-            all_pred_list.append(pred.cpu().detach().numpy().ravel())
+            pred = pred.cpu().detach().numpy().ravel()
+            pred_str = np.where(pred > threshold, "soluble", "insoluble")
+            prediction = np.concatenate([pred.reshape(-1, 1), pred_str.reshape(-1, 1)], axis=1)
+            all_pred_list.append(prediction)
             final_keys += keys
 
         all_pred_array = np.concatenate(all_pred_list, axis=0)
-        score_df = pd.DataFrame(all_pred_array, index=final_keys, columns=["pred_probability"])
+        score_df = pd.DataFrame(all_pred_array, index=final_keys, columns=["pred_probability", "prediction"])
 
         return score_df
     
